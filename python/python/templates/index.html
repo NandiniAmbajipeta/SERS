@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Emergency Response System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            animation: backgroundAnimation 15s infinite alternate;
+        }
+
+        @keyframes backgroundAnimation {
+            0% {
+                background-image: url('/static/back3.jpg');
+            }
+
+            50% {
+                background-image: url('/static/back8.jpg');
+            }
+
+            100% {
+                background-image: url('/static/back9.jpg');
+            }
+        }
+
+        header {
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
+            z-index: 2;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 1);
+            background: rgba(96, 95, 95, 0.6);
+            display: inline-block;
+        }
+
+        .login-container {
+            height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            z-index: 2;
+        }
+
+        .login {
+            background-color: rgba(119, 112, 112, 0.85); /* Solid black background for contrast */
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.7);
+            width: 500px;
+        }
+
+        .login-label {
+            font-size: 20px;
+            color: #fff;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        #Email,
+        #password {
+            font-size: 18px;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #fff;
+            width: 100%;
+            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            outline: none;
+        }
+
+        #Email::placeholder,
+        #password::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        #Email:focus,
+        #password:focus {
+            border-color: #f0a500;
+            box-shadow: 0px 0px 8px #f0a500;
+        }
+
+        .btn {
+            display: block;
+            margin: auto;
+            margin-top: 20px;
+            background-color: #f0a500;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            font-size: 18px;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #c27b00;
+            box-shadow: 0px 0px 12px #f0a500;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Smart Emergency Response System</h1>
+    </header>
+    <div class="login-container">
+        <div class="login">
+            <form action="/" method="POST">
+                <label for="Email" class="login-label">Email:</label>
+                <input type="email" id="Email" name="email" placeholder="Example@example.com" required />
+                <label for="password" class="login-label">Password:</label>
+                <input type="password" id="password" name="password" placeholder="********" required />
+                <input type="submit" class="btn" value="Login" />
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+<!-- old backgrounds -->
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Emergency Response System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            animation: backgroundAnimation 15s infinite alternate;
+        }
+
+        @keyframes backgroundAnimation {
+            0% {
+                background-image: url('/static/back3.jpg');
+            }
+            50% {
+                background-image: url('/static/back8.jpg');
+            }
+            100% {
+                background-image: url('/static/back9.jpg');
+            }
+        }
+
+        header {
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.5); /* Translucent background behind text */
+            padding: 10px 20px;
+            border-radius: 10px;
+            display: inline-block;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 107, 107, 0.8);
+        }
+
+        .login-container {
+            height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .login {
+            background-color: rgba(83, 81, 81, 0.171);
+            padding: 40px;
+            border-radius: 40px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .login-label {
+            font-size: 20px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        #Email,
+        #password {
+            font-size: 18px;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            width: 100%;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 3px 3px 10px rgba(255, 255, 255, 0.8);
+            color: #000;
+            outline: none;
+        }
+
+        #Email:focus,
+        #password:focus {
+            box-shadow: 5px 5px 15px rgba(255, 255, 255, 1);
+        }
+
+        .btn {
+            display: block;
+            margin: auto;
+            margin-top: 20px;
+            background-color: #61764B;
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: none;
+            font-size: 18px;
+            color: #FFE1E1;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #4a5a37;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Smart Emergency Response System</h1>
+    </header>
+    <div class="login-container">
+        <div class="login">
+            <form action="/" method="POST">
+                <label for="Email" class="login-label">Email:</label>
+                <input type="email" id="Email" name="email" placeholder="Example@example.com" required />
+                <label for="password" class="login-label">Password:</label>
+                <input type="password" id="password" name="password" placeholder="********" required />
+                <input type="submit" class="btn" value="Login" />
+            </form>
+        </div>
+    </div>
+</body>
+
+</html> -->
+
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Emergency Response System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            animation: backgroundAnimation 15s infinite alternate;
+        }
+
+        @keyframes backgroundAnimation {
+            0% {
+                background-image: url('/static/back3.jpg');
+            }
+            50% {
+                background-image: url('/static/back4.jpg');
+            }
+            100% {
+                background-image: url('/static/back5.webp');
+            }
+        }
+
+        header {
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(90deg, rgba(255, 223, 186, 1), rgba(255, 107, 107, 1), rgba(255, 186, 186, 1));
+            background-size: 300%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: gradientText 6s linear infinite;
+            text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.8), 0px 0px 20px rgba(255, 107, 107, 0.8);
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        @keyframes gradientText {
+            0% {
+                background-position: 0%;
+            }
+            100% {
+                background-position: 100%;
+            }
+        }
+
+        .login-container {
+            height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .login {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 40px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .login-label {
+            font-size: 20px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        #Email,
+        #password {
+            font-size: 18px;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            width: 100%;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 3px 3px 10px rgba(255, 255, 255, 0.8);
+            color: #000;
+            outline: none;
+        }
+
+        #Email:focus,
+        #password:focus {
+            box-shadow: 5px 5px 15px rgba(255, 255, 255, 1);
+        }
+
+        .btn {
+            display: block;
+            margin: auto;
+            margin-top: 20px;
+            background-color: #61764B;
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: none;
+            font-size: 18px;
+            color: #FFE1E1;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #4a5a37;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Smart Emergency Response System</h1>
+    </header>
+    <div class="login-container">
+        <div class="login">
+            <form action="/" method="POST">
+                <label for="Email" class="login-label">Email:</label>
+                <input type="email" id="Email" name="email" placeholder="Example@example.com" required />
+                <label for="password" class="login-label">Password:</label>
+                <input type="password" id="password" name="password" placeholder="********" required />
+                <input type="submit" class="btn" value="Login" />
+            </form>
+        </div>
+    </div>
+</body>
+
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Emergency Response System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            animation: backgroundAnimation 15s infinite alternate;
+        }
+
+        @keyframes backgroundAnimation {
+            0% {
+                background-image: url('/static/back3.jpg');
+            }
+            50% {
+                background-image: url('/static/back4.jpg');
+            }
+            100% {
+                background-image: url('/static/back5.webp');
+            }
+        }
+
+        header {
+            width: 100%;
+            padding: 10px 0px 10px 50px;
+            background-color: rgba(144, 161, 125, 0.8);
+            box-sizing: border-box;
+            position: relative;
+            z-index: 1;
+        }
+
+        header h1 {
+            color: #FFE1E1;
+        }
+
+        .login-container {
+            height: 93vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .login {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 40px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .login-label {
+            font-size: 20px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        #Email,
+        #password {
+            font-size: 18px;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            width: 100%;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 3px 3px 10px rgba(255, 255, 255, 0.8);
+            color: #000;
+            outline: none;
+        }
+
+        #Email:focus,
+        #password:focus {
+            box-shadow: 5px 5px 15px rgba(255, 255, 255, 1);
+        }
+
+        .btn {
+            display: block;
+            margin: auto;
+            margin-top: 20px;
+            background-color: #61764B;
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: none;
+            font-size: 18px;
+            color: #FFE1E1;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #4a5a37;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Smart Emergency Response System</h1>
+    </header>
+    <div class="login-container">
+        <div class="login">
+            <form action="/" method="POST">
+                <label for="Email" class="login-label">Email:</label>
+                <input type="email" id="Email" name="email" placeholder="Example@example.com" required />
+                <label for="password" class="login-label">Password:</label>
+                <input type="password" id="password" name="password" placeholder="********" required />
+                <input type="submit" class="btn" value="Login" />
+            </form>
+        </div>
+    </div>
+</body>
+</html> -->
+
+
+
+
+
+
+<!-- MAIN -->
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ambulance Alerting System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100%;
+            background-color: #A3C7D6;
+            padding: 0;
+        }
+
+        header {
+            padding: 10px 0px 10px 50px;
+            background-color: #90A17D;
+            box-sizing: border-box;
+        }
+
+        header h1 {
+            color: #FFE1E1;
+        }
+
+        .login-label {
+            width:max-content;
+            margin: 5px 0;
+            font-size: 20px;
+            color: #61764B;
+            font-weight: bold;
+        }
+
+        .login-container {
+            height:93vh;
+            width:100% !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width:fit-content;
+        }
+
+        .login {
+            display: block;
+            margin: auto;
+            background-color: #FFE1E1;
+            padding: 40px;
+            border-radius: 40px;
+        }
+
+        .btn {
+            display: block;
+            margin: auto;
+            margin-top: 20px;
+            background-color: #61764B;
+            padding: 8px 20px;
+            border-radius: 10px;
+            border: none;
+            font-size: 20px;
+            color: #FFE1E1;
+        }
+
+        .q {
+            height: 100%;
+            color: green;
+        }
+
+        #Email,
+        #password {
+            font-size: 20px;
+            padding: 8px;
+            border-radius: 10px;
+            border: none;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Ambulance Alerting System</h1>
+    </header>
+    <div class="login-container">
+        <div class="login">
+            <form action="/" method="POST">
+                <label for="Email">
+                    <p class="e-mail-label login-label">Email:</p>
+                </label>
+                <input type="email" id="Email" name="email" placeholder="Example@example.com" />
+                <label for="password">
+                    <p class="password-label login-label">Password:</p>
+                </label>
+                <input type="password" id="password" name="password" placeholder="********" />
+                <input type="submit" class="submitt-btn btn" />
+            </form>
+        </div>
+    </div>
+    <p>{{password}}</p>
+</body>
+</html> -->

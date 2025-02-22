@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<head>
+    <title>MapmyIndia Plugin - direction Plugin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="desciption" content="Mapmyindia Direction Plugin">
+    <script src="https://apis.mappls.com/advancedmaps/api/8cfe38ec-e679-418b-892f-a4a3aba2effa/map_load?v=3.0"></script>
+    <script src="https://apis.mappls.com/advancedmaps/api/8cfe38ec-e679-418b-892f-a4a3aba2effa/map_sdk?v=3.0"></script>
+    <script src="https://apis.mappls.com/advancedmaps/api/8cfe38ec-e679-418b-892f-a4a3aba2effa/map_sdk_plugins?v=3.0&libraries=nearby"></script>
+
+    <!-- <script
+        src="https://apis.mappls.com/advancedmaps/v1/d6d53eb34d94594899aa368e4ce78afe/map_load?v=3.0"></script> -->
+
+    <!-- <script src="https://apis.mappls.com/advancedmaps/api/d6d53eb34d94594899aa368e4ce78afe/map_sdk_plugins?v=3.0&libraries=nearby"></script> -->
+
+    <!-- <script src="https://apis.mappls.com/advancedmaps/api/d6d53eb34d94594899aa368e4ce78afe/map_sdk?v=3.0"></script> -->
+
+    <!-- <script src="https://apis.mapmyindia.com/maps/map_sdk_plugins?v=3.0&key=d6d53eb34d94594899aa368e4ce78afe"></script> -->
+
+    <!-- <script
+        src="https://apis.mapmyindia.com/advancedmaps/api/d6d53eb34d94594899aa368e4ce78afe/map_sdk_plugins"></script> -->
+      <!-- 
+        <script
+        src="https://apis.mapmyindia.com/advancedmaps/v1/0b187d2c-e38a-4420-add2-feed3a09974c/map_load?v=1.5"></script>
+    <script
+        src="https://apis.mapmyindia.com/advancedmaps/api/0b187d2c-e38a-4420-add2-feed3a09974c/map_sdk_plugins"></script>
+        -->
+
+
+    <style>
+       body {
+    background-image: url('/static/back4.jpg'); /* Update the path accordingly */
+    background-repeat: no-repeat;
+    background-size: contain; /* Instead of cover */
+    background-position: center top;
+    background-attachment: fixed; /* Keeps it from moving when scrolling */
+}
+
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 190%;
+    background-color: rgba(255, 255, 255, 0.5); /* Adjust opacity for better visibility */
+    z-index: -1;
+}
+
+        /* body{
+            background-color:rgb(167, 232, 211);
+        }
+        .body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        } */
+
+        #map {
+            width: 500px;
+            height: 500px;
+            margin: 0;
+            padding: 0;
+            background-color: red;
+            box-shadow:1px 1px 10px 1px black;
+        }
+
+        #nearby_search {
+            width: 500px !important;
+            background-color: green;
+            margin:auto;
+            text-align:center;
+            /* align-self:center;
+            margin-right:30px !important; */
+            box-shadow:1px 1px 10px 1px black;
+        }
+        .map-map{
+            display:flex;
+            justify-content:center;
+            gap:20px;
+        }
+
+        h1 {
+            margin: 10px;
+            padding:0;
+            color:red;
+            font-size: 40px;
+            text-align:center;
+            font-weight: bold;
+            font-style: inherit;
+        }
+
+        .headerr p {
+            text-align: center;
+        }
+        .from-to-form {
+    display: block;
+    width: 350px;
+    padding: 25px;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.2); /* Glassmorphism Effect */
+    border-radius: 12px;
+    box-shadow: 2px 4px 20px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px); /* Blurred background effect */
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.from-to-form p {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 8px;
+}
+
+.from-to-form select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 2px solid #6a5acd; /* Soft Purple Border */
+    background: #fff;
+    outline: none;
+    transition: 0.3s;
+}
+
+.from-to-form select:hover {
+    border-color: #483d8b; /* Darker Purple on Hover */
+}
+
+.from-to-form input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    border-radius: 8px;
+    border: none;
+    background: linear-gradient(135deg, #6a5acd, #483d8b); /* Gradient Button */
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(106, 90, 205, 0.5);
+}
+
+.from-to-form input:hover {
+    background: linear-gradient(135deg, #483d8b, #6a5acd); /* Reverse Gradient */
+    box-shadow: 0px 6px 15px rgba(72, 61, 139, 0.6);
+    transform: scale(1.05); /* Subtle Zoom Effect */
+}
+
+        /* .from-to-form{
+            display:block;
+            width:300px;
+            padding:20px;
+            margin:auto;
+            background-color:rgb(209, 175, 241);
+            border-radius:10px;
+            box-shadow:1px 1px 10px 1px black;
+        }
+        .from-to-form p{
+            width:max-content !important;
+            font-size:20px;
+        }
+        .from-to-form select{
+            width:200px;
+            padding:8px;
+            font-size:18px;
+            border-radius:10px;
+            background-color:bisque;
+            border:none;
+        }
+        .from-to-form input{
+            width:100px;
+            padding:8px;
+            margin:auto;
+            margin-top:20px;
+            display:block;
+            border-radius:10px;
+            border:none;
+            background-color:blueviolet;
+            color:white;
+        } */
+        #me{
+            text-align:center;
+            font-size: 25px;
+            color:red;
+            font-weight:bold;
+        }
+        .styled-table {
+    width: 60%;
+    border-collapse:collapse;
+    margin: 25px auto; /* Centers the table horizontally */
+    font-size: 18px;
+    text-align: left;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 1px 1px 10px 1px black;
+}
+
+        /* .styled-table{
+            width:50%;
+            border-collapse:collapse;
+            margin:25px 0;
+            font-size:18px;
+            text-align:left;
+            border-radius:10px;
+            overflow:hidden;
+            box-shadow:1px 1px 10px 1px black;
+        } */
+        .styled-table thead tr{
+            background-color:#6a5acd;
+            color:white;
+            text-align:center;
+            font-weight:bold;
+        }
+        .styled-table th, .styled-table td{
+            padding:12px 15px;
+            text-align:center;
+            border:1px solid #ddd;
+        }
+        .styled-table tbody tr:nth-of-type(even){
+            background-color:#f3f3f3;
+        }
+        .styled-table tbody tr:hover{
+            background-color:#ddd;
+        }
+        .map-map{
+            display:flex;
+            flex-direction:row;
+        }
+        @media screen and (max-width:1000px){
+            .map-map{
+                flex-direction:column;
+            }
+            #nearby_search{
+                margin:0 0 50px 0 !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="body">
+        <div class="headerr">
+            <h1><b>+</b> AMBULANCE DRIVER PAGE <b>+</b></h1>
+            <p>from Smart Emergency Response System</p>
+        </div>
+        <div class="map-map">
+            <div id="nearby_search" style=" margin: 5px;width:99%;height:250px;overflow-y: auto;border-radius: 10px;"></div>
+            <div id="map"></div>
+            <div id="direction"></div>
+         </div>
+    </div>
+    <br>
+    <br>
+    <div class="from-to-form">
+        <form action="/ambulance-drive" method="POST">
+            <label>
+                <p>From:</p>
+                <select name="ambulancedriver-from">
+                    {% for j in fromlist %}
+                        <option value="{{j[0]}}">{{j[0]}}</option>
+                    {% endfor %}
+                </select>
+                <label>
+                    <p>To:</p>
+                    <select name="ambulancedriver-to">
+                        {% for j in fromlist %}
+                            <option value="{{j[1]}}">{{j[1]}}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+            </label>
+            <br>
+            <input type="submit" name="routesubmit"/>
+        </form>
+    </div>
+
+    <div  class="result-section">
+        <!--<p><span>&#x2713;</span> The message has been sent to Hospital</p>
+        <p><span>&#x2713;</span> The message is sent to traffic police: <b>{{tp_name}}</b>, at <b>{{tp_location}}</b></p>
+        <p><span>&#x2713;</span> Currently the signal is <b class="signal-stat">{{s_status}}</b></p>
+        <p>For more details refresh the page.</p>-->
+        <p id="me">Signals in between your destination</p>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Location</th>
+                    <th>Signal Status</th>
+                    <th>Traffic Police name</th>
+                    <th>Message sent to clear traffic</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in signal_details %}
+                <tr>
+                    <td>{{i[0]}}</td>
+                    <td>{{i[2]}}</td>
+                    <td>{{i[1]}}</td>
+                    <td>Yes</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p id="me">Hospitals near your destination location</p>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Hospital Name</th>
+                    <th>Bed available</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in hospital_details %}
+                <tr>
+                    <td>{{i[0]}}</td>
+                    <td>{{i[1]}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Getting Geolocation and initializing map and nearby hospital search
+
+        //Getting Geolocation using
+        var lat = 17.498813, log = 78.4217026;
+        var destination = "Konark Hospitals";
+        navigator.geolocation.getCurrentPosition(showPosition);
+
+        function showPosition(position) {
+            lat = position.coords.latitude;
+            log = position.coords.longitude;
+            console.log(lat);
+            console.log(log);
+        }
+
+
+        /*Map Initialization*/
+        var map = new mappls.Map('map', { center: [lat, log], zoom: 10, search: false });
+
+        var options = {
+            divId: 'nearby_search',
+            map: map,
+            keywords: 'Hospital',
+            refLocation: [lat, log],
+            fitbounds: true,
+            click_callback: function (d) {
+                console.log(d);
+                update_direction(d["placeName"].concat(", ",d["placeAddress"]), d["eLoc"]);
+            }
+        }
+        console.log(lat + ',' + log);
+        var nr = mappls.nearby(options);
+        console.log(nr)
+        /*direction plugin initialization*/
+        function update_direction(addres,eloc) {
+            var direction_option = {
+                map: map,
+                start: lat + ',' + log,
+                end: {label:addres,geoposition:eloc},
+                resource: 'route_traffic',
+                callback: function (data) { console.log(data); }
+            }
+
+            console.log(lat + ',' + log);
+            var direction_plugin = mappls.direction(direction_option);
+            //direction_plugin.remove();
+            console.log(dist + "<--");
+        }
+    </script>
+</body>
+
+</html>

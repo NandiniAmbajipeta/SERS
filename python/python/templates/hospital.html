@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body{
+                background-image:url('/static/back10.webp'); 
+                background-repeat: no-repeat;
+                background-size: cover; /* Instead of cover */
+                background-position: center top;
+                background-attachment: fixed;
+            }
+            body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.5); /*Adjust opacity for better visibility */
+            z-index: -1;
+            }
+            .styled-table {
+    width: 80%;
+    border-collapse:collapse;
+    margin: 25px auto; /* Centers the table horizontally */
+    font-size: 18px;
+    text-align: left;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 1px 1px 10px 1px black;
+}
+            .styled-table thead tr{
+            background-color:#6a5acd;
+            color:white;
+            text-align:center;
+            font-weight:bold;
+        }
+        .styled-table th, .styled-table td{
+            padding:12px 15px;
+            text-align:center;
+            border:1px solid #ddd;
+        }
+        .styled-table tbody tr:nth-of-type(even){
+            background-color:#f3f3f3;
+        }
+        .styled-table tbody tr:hover{
+            background-color:#ddd;
+        }
+        /* Container Layout */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Card Design */
+.selection {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 320px;
+    text-align: center;
+    margin: 20px auto;
+}
+
+/* Title */
+.selection h2 {
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: #6a5acd;
+    font-weight: bold;
+}
+
+/* Dropdown Styling */
+.selection select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background: #f8f8f8;
+}
+
+/* Submit Button */
+.selection input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    background: #6a5acd;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.selection input[type="submit"]:hover {
+    background: #5a4abf;
+}
+
+/* Status Message */
+.updated-msg {
+    font-size: 14px;
+    margin-top: 10px;
+    color: green;
+}
+
+
+            /* .container{
+                display:flex;
+                flex-direction:column;
+                justify-content:center;
+                align-items:center;
+            }
+            .selection{
+                margin:50px;
+            }
+            .hospital_details{
+                margin:50px;
+            } */
+            h1{
+                text-align:center;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>Hospital Page</h1>
+        </header>
+        <div class="container">
+            <div class="selection">
+                <h2>Update Hospital Status</h2>
+                <form action="/hospital" method="POST">
+                    <select name="hospital_name_hp">
+                        {% for i in hospital_name_hp %}
+                        <option value="{{i[0]}}">{{i[0]}}</option>
+                        {% endfor %}
+                    </select>
+        
+                    <select name="accept_patient">
+                        <option value=1>Accepting Patients</option>
+                        <option value=0>Not Accepting</option>
+                    </select>
+        
+                    <input type="submit" value="Update Status"/>
+                </form>
+            </div>
+        
+            <p class="updated-msg">{{record_updated}}</p>
+        </div>
+        
+
+
+
+        
+        <!-- <div class="container">
+        <div class="selection">
+            <form action="/hospital" method="POST">
+                <select name="hospital_name_hp" onchange="">
+                    {% for i in hospital_name_hp %}
+                    <option value="{{i[0]}}">{{i[0]}}</option>
+                    {%endfor%}
+                </select>
+                <select name="accept_patient">
+                    <option value=1>Yes</option>
+                    <option value=0>No</option>
+                </select>
+                <input type="submit"/>
+            </form>
+        </div>
+        {{record_updated}} -->
+        <div class="hospital-details">
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Hospital Name</th>
+                        <th>Accept Patient</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in hospital_name_hp %}
+                <tr>
+                    <td>{{i[0]}}</td>
+                    <td>{{i[1]}}</td>
+                </tr>
+                {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </body>
+</html>

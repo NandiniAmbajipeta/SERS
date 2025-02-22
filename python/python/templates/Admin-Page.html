@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Background Styling */
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: url('/python/static/back5.jpg') no-repeat center center;
+            background-size:cover;
+            color: #333;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Background Overlay */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3); /* Semi-transparent overlay */
+            /* backdrop-filter: blur(5px); */
+            z-index: 0;
+        }
+
+        h1 {
+            font-size: 40px;
+            margin-bottom: 30px;
+            color: #abeaef;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 500px;
+            transition: 0.3s;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container:hover {
+            transform: scale(1.02);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        input:focus, select:focus {
+            border-color: #ff6b6b;
+            outline: none;
+            box-shadow: 0px 0px 8px rgba(255, 107, 107, 0.5);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .submit-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #e63946;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Page - Smart Emergency Response System</h1>
+    <div class="container">
+        <form action="/admin" method="POST">
+            <label>Name</label>
+            <input type="text" name="name" required>
+
+            <label>Email ID</label>
+            <input type="email" name="Email" required>
+
+            <label>Profession</label>
+            <select name="proffession" id="proffesion" onchange="handleProfessionChange(this.value)" required>
+                <option disabled selected>--Select an Option--</option>
+                <option value="hpt">Hospital</option>
+                <option value="trp">Traffic Police</option>
+                <option value="amd">Ambulance Driver</option>
+            </select>
+
+            <label>Password</label>
+            <input type="password" name="password" required>
+
+            <!-- Traffic Police Fields -->
+            <div id="traffic-container" class="hidden">
+                <label>Location</label>
+                <input type="text" name="location">
+
+                <label>Discord Username</label>
+                <input type="text" name="d_name">
+
+                <label>Route Information</label>
+                <input type="text" name="from1" placeholder="From">
+                <input type="text" name="to1" placeholder="To">
+                <input type="text" name="from2" placeholder="From">
+                <input type="text" name="to2" placeholder="To">
+            </div>
+
+            <!-- Hospital Fields -->
+            <div id="hospital-container" class="hidden">
+                <label>Hospital Name</label>
+                <input type="text" name="hospital">
+
+                <label>Ready to Attend Patient</label>
+                <select name="attendpatient">
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+
+                <label>Discord Username</label>
+                <input type="text" name="d_name_d">
+
+                <label>Hospital Location</label>
+                <input type="text" name="hospitallocation">
+            </div>
+
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        function handleProfessionChange(value) {
+            document.getElementById('traffic-container').classList.add('hidden');
+            document.getElementById('hospital-container').classList.add('hidden');
+
+            if (value === 'trp') {
+                document.getElementById('traffic-container').classList.remove('hidden');
+            } else if (value === 'hpt') {
+                document.getElementById('hospital-container').classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin Page</title>
+        <meta charset="UTF-8"/>
+        <style>
+            .Traffic-Police-container,.hospital-container{
+                display:none;
+            }
+            body{
+                /* background-image:url('/static/back2.jpg');
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-position: center top;
+                background-attachment: fixed; */
+                display:flex;
+                flex-direction:column;
+                justify-content:center;
+                align-items:center;
+                background-color:bisque
+            }
+            /* body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.5); 
+            z-index: -1;
+            } */
+        </style>
+    </head>
+    <body>
+        <script>
+            function proffesion_question(value){
+                if(value=="trp"){
+                document.getElementsByClassName('Traffic-Police-container')[0].style.display="block";
+                document.getElementsByClassName('hospital-container')[0].style.display="none";
+                }
+                else if(value=="hpt"){
+                    document.getElementsByClassName('Traffic-Police-container')[0].style.display="none";
+                    document.getElementsByClassName('hospital-container')[0].style.display="block";
+                }
+                else
+                {
+                    document.getElementsByClassName('Traffic-Police-container')[0].style.display="none";
+                    document.getElementsByClassName('hospital-container')[0].style.display="none";
+                }
+            }
+        </script>
+
+        <header>
+            <h1 class="hello1">Admin Page of AmbulanceAlertingSystem</h1>
+        </header>
+        <div class="container" id="container">
+            <div class="form-container">
+                <form action="/admin" method="POST">
+                    <label>
+                        <p>Name</p>
+                        <input type="text" name="name" required />
+                    </label>
+
+                    <label>
+                        <p>Email ID</p>
+                        <input type="email" name="Email" required/>
+                    </label>
+
+                    <label>
+                        <p>Proffession</p>
+                        <select name="proffession" id="proffesion" onchange="proffesion_question(value);" required>
+                            <option disabled selected>--select an option--</option>
+                            <option value="hpt">Hospital</option>
+                            <option value="trp">Traffic Police</option>
+                            <option value="amd">Ambulance driver</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        <p>Password</p>
+                        <input type="password" name="password" required/>
+                    </label>
+                    <br>
+                    <br>
+                    <div class="Traffic-Police-container">
+                        <label>
+                            <p>location</p>
+                            <input type="text" class="location" name="location"/>
+                        </label>
+                        <label>
+                            <p>Discord user name:</p>
+                            <input type="text" class="d_name" name="d_name"/>
+                        </label>
+                        <label>
+                            <p>from:</p>
+                            <input type="text" class="from1" name="from1"/>
+                        </label>
+                        <label>
+                            <p>to:</p>
+                            <input type="text" class="to1" name="to1"/>
+                        </label>
+                        <label>
+                            <p>from:</p>
+                            <input type="text" class="from1" name="from2"/>
+                        </label>
+                        <label>
+                            <p>to:</p>
+                            <input type="text" class="to1" name="to2"/>
+                        </label>
+                    </div>
+                    <div class="hospital-container">
+                        <label>
+                            <p>Hospital Name:</p>
+                            <input type="text" class="hospital" name="hospital"/>
+                        </label>
+                        <label>
+                            <p>Ready to attend patient:</p>
+                            <select name="attendpatient">
+                                <option value=1>yes</option>
+                                <option value=0>No</option>
+                            </select>
+                        </label>
+                        <label>
+                            <p>Discord user name:</p>
+                            <input type="text" class="d_name-d" name="d_name-d"/>
+                        </label>
+                        <label>
+                            <p>Hospital Location:</p>
+                            <input type="text" class="hospital-location" name="hospitallocation"/>
+                        </label>
+                    </div>
+                    <br>
+                    <input type="submit" name="submit"/>
+                </form>
+            </div>
+        </div>
+    </body>
+</html> -->
