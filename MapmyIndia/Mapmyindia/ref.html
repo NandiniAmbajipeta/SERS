@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Map Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://apis.mapmyindia.com/advancedmaps/v1/d6d53eb34d94594899aa368e4ce78afe/map_load?v=1.5"></script>
+</head>
+<body>
+    <div id="map" style="height: 500px; width: 100%;"></div>
+    <script>
+        var map = new MapmyIndia.Map("map", {
+            center: [17.5067895, 78.4604792],
+            zoom: 10
+        });
+    </script>
+</body>
+</html>

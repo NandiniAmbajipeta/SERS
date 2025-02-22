@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nearby Hospitals</title>
+  <script type="text/javascript" src="https://apis.mapmyindia.com/advancedmaps/v1/d9cb780c-0093-4855-8b17-d06f518b96df/map_load?v=1.5"></script>  <!-- Ensure this is included -->
+  <style>
+    /* Basic layout */
+    body {
+      display: flex;
+      font-family: Arial, sans-serif;
+    }
+    #hospital-list {
+      width: 30%;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 10px;
+      border-right: 1px solid #ddd;
+    }
+    #map {
+      width: 70%;
+      height: 100vh;
+    }
+    .hospital-item {
+      padding: 8px;
+      border-bottom: 1px solid #ddd;
+      cursor: pointer;
+    }
+    .hospital-item:hover {
+      background-color: #f1f1f1;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="hospital-list">
+    <h3>Nearby Hospitals</h3>
+    <div id="list-container"></div>
+  </div>
+
+  <div id="map"></div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Initialize MapmyIndia map
+      var map = new MapmyIndia.Map("map", {
+        center: [17.5067895, 78.4604792],  // Coordinates for the location
+        zoom: 12,
+      });
+
+      // Function to fetch and display nearby hospitals
+      function fetchNearbyHospitals(lat, lng) {
+        const accessToken = "d9cb780c-0093-4855-8b17-d06f518b96df";  // Use the Bearer token obtained
+        const url = `https://atlas.mapmyindia.com/api/places/nearby/json?keywords=hospital&refLocation=${lat},${lng}`;
+
+        // Fetch nearby hospitals
+        fetch(url, {
+          headers: {
+            "Authorization": `Bearer ${accessToken}`,  // Add bearer token for authentication
+          },
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (data.suggestedLocations && data.suggestedLocations.length > 0) {
+              displayHospitals(data.suggestedLocations);
+            } else {
+              console.log("No nearby hospitals found.");
+            }
+          })
+          .catch(error => console.error("Error fetching nearby hospitals:", error));
+      }
+
+      // Function to display hospitals on the left side
+      function displayHospitals(hospitals) {
+        const listContainer = document.getElementById("list-container");
+        listContainer.innerHTML = "";  // Clear previous results
+
+        hospitals.forEach((hospital) => {
+          // Create a list item
+          const listItem = document.createElement("div");
+          listItem.className = "hospital-item";
+          listItem.textContent = hospital.placeName;
+
+          // Add click event to center the map on the selected hospital
+          listItem.addEventListener("click", function () {
+            map.setView([hospital.latitude, hospital.longitude], 15);
+          });
+
+          listContainer.appendChild(listItem);
+        });
+      }
+
+      // Fetch nearby hospitals based on the given coordinates (e.g., Hyderabad)
+      fetchNearbyHospitals(17.5067895, 78.4604792);
+    });
+  </script>
+
+</body>
+</html>

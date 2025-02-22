@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>MapmyIndia Plugin - Nearby Plugin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MapmyIndia Nearby Plugin">
+    <script src="https://apis.mappls.com/advancedmaps/api/8cfe38ec-e679-418b-892f-a4a3aba2effa/map_load?v=3.0"></script>
+    <script src="https://apis.mappls.com/advancedmaps/api/8cfe38ec-e679-418b-892f-a4a3aba2effa/map_sdk?v=3.0"></script>
+    <script src="https://apis.mappls.com/advancedmaps/api/8cfe38ec-e679-418b-892f-a4a3aba2effa/map_sdk_plugins?v=3.0&libraries=nearby"></script>
+
+    <!-- <script src="https://apis.mappls.com/advancedmaps/v1/d6d53eb34d94594899aa368e4ce78afe/map_load?v=3.0"></script> -->
+    <!-- <script src="https://apis.mappls.com/advancedmaps/api/d6d53eb34d94594899aa368e4ce78afe/map_sdk_plugins?v=3.0&libraries=nearby"></script> -->
+    <!-- <script src="https://apis.mappls.com/advancedmaps/api/d6d53eb34d94594899aa368e4ce78afe/map_sdk?v=3.0"></script> -->
+
+    <!-- <script src="https://apis.mapmyindia.com/maps/map_sdk_plugins?v=3.0&key=d6d53eb34d94594899aa368e4ce78afe"></script> -->
+
+    <!-- <script src="https://apis.mapmyindia.com/advancedmaps/api/d6d53eb34d94594899aa368e4ce78afe/map_sdk_plugins"></script> -->
+
+    <style>
+        body {
+            margin: 0;
+        }
+
+        #map {
+            width: 99%;
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="nearby_search" style="margin: 5px;width:99%;height:250px;overflow-y: auto;border-radius: 10px;"></div>
+    <div id="map"></div>
+
+    <script>
+        const map = new mappls.Map('map', {
+            center: [17.498813, 78.4217026],
+            zoom: 5,
+            search:false
+            // key: "d6d53eb34d94594899aa368e4ce78afe"
+        });
+
+        const hospitals = [
+            "Vasavi Hospitals", "Sri Swastik Hospitals", "Sri Sri Holistic Hospitals", "SLG Hospitals",
+            "Mamatha Hospitals", "Sree Manju Hospitals", "Metrocare", "Medi Needs", "Prathima", "Padmaja Hospitals",
+            "Lotus Hospitals", "Remedy", "Ramdev Rao Hospitals", "Parindhevi Hospitals", "Care and Cure",
+            "Amor", "BBR Super Speciality", "Revive Multi Speciality", "Alavi Hospitals",
+            "Konark Hospitals", "Medone Hospitals", "Russh Hospitals"
+        ];
+
+        hospitals.forEach(hospital => {
+            mappls.nearby({
+                divId: 'nearby_search',
+                map: map,
+                keywords: hospital,
+                refLocation: [17.498813, 78.4217026],
+                fitbounds: true,
+                click_callback: function (d) {
+                    console.log('Nearby hospital:', d);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

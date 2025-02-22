@@ -1,0 +1,195 @@
+<!-- <html></html>
+
+<head>
+    <title>MapmyIndia Plugin - direction Plugin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="desciption" content="Mapmyindia Direction Plugin">
+    <script
+        src="https://apis.mapmyindia.com/advancedmaps/v1/f904c7929bd7e7821e13a96ef8ebe467/map_load?v=1.5"></script>
+    <script
+        src="https://apis.mapmyindia.com/advancedmaps/api/f904c7929bd7e7821e13a96ef8ebe467/map_sdk_plugins"></script>
+
+        <script
+        src="https://apis.mapmyindia.com/advancedmaps/v1/0b187d2c-e38a-4420-add2-feed3a09974c/map_load?v=1.5"></script>
+    <script
+        src="https://apis.mapmyindia.com/advancedmaps/api/0b187d2c-e38a-4420-add2-feed3a09974c/map_sdk_plugins"></script>
+
+
+
+    <style>
+        body {
+            margin: 0
+        }
+
+        #map {
+            width: 500px;
+            height: 500px;
+            margin: 0;
+            padding: 0;
+        }
+        #nearby_search{
+            width:500px !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="nearby_search" style=" margin: 5px;width:99%;height:250px;overflow-y: auto;border-radius: 10px;"></div>
+    <div id="map"></div>
+    <div id="direction"></div>
+
+    <script>
+        //Getting Geolocation using
+        var lat = 12.5437738, log = 78.3299922;
+        var destination="Dhandavamoorthi Hospital";
+        navigator.geolocation.getCurrentPosition(showPosition);
+
+        function showPosition(position) {
+            lat = position.coords.latitude;
+            log = position.coords.longitude;
+            console.log(lat);
+            console.log(log);
+        }
+
+
+        /*Map Initialization*/
+        var map = new MapmyIndia.Map('map', { center: [lat, log], zoom: 10, search: false });
+
+        var options = {
+            divId:'nearby_search',
+            map: map,
+            keywords: 'Hospital',
+            refLocation: [lat, log],
+            fitbounds: true,
+            click_callback: function (d) {
+                console.log(d);
+                update_direction(d["latitude"],d["longitude"]);
+            }
+        }
+        console.log(lat+','+log);
+        var nr = MapmyIndia.nearby(options);
+        console.log(nr)
+        /*direction plugin initialization*/
+        function update_direction(lat1,log1){
+        var direction_option = {
+            map: map,
+            start:lat+','+log,
+            end: lat1+','+log1,
+            resource:'route_traffic',
+            callback: function (data) { console.log(data); }
+        }
+
+        console.log(lat+','+log);
+        var direction_plugin = MapmyIndia.direction(direction_option);
+            //direction_plugin.remove();
+            console.log(dist+"<--");
+    }
+    </script>
+</body>
+
+</html> --> 
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MapmyIndia Plugin - Ambulance Route</title>
+    <meta name="description" content="MapmyIndia Direction Plugin">
+
+    <!-- Load MapmyIndia API -->
+    <script src="https://apis.mappls.com/advancedmaps/api/8cfe38ec-e679-418b-892f-a4a3aba2effa/map_load?v=3.0"></script>
+    <script src="https://apis.mappls.com/advancedmaps/api/8cfe38ec-e679-418b-892f-a4a3aba2effa/map_sdk?v=3.0"></script>
+    <script src="https://apis.mappls.com/advancedmaps/api/8cfe38ec-e679-418b-892f-a4a3aba2effa/map_sdk_plugins?v=3.0&libraries=nearby"></script>
+    
+    <!-- <script src="https://apis.mappls.com/advancedmaps/v1/d6d53eb34d94594899aa368e4ce78afe/map_load?v=3.0"></script> -->
+    <!-- <script src="https://apis.mappls.com/advancedmaps/api/d6d53eb34d94594899aa368e4ce78afe/map_sdk?v=3.0"></script> -->
+
+    <!-- <script src="https://apis.mappls.com/maps/map_sdk_plugins?v=3.0&key=d6d53eb34d94594899aa368e4ce78afe"></script> -->
+
+    <!-- <script src="https://apis.mapmyindia.com/advancedmaps/api/d6d53eb34d94594899aa368e4ce78afe/map_sdk_plugins"></script> -->
+
+    <style>
+        body {
+            margin: 0;
+        }
+
+        #map {
+            width: 500px;
+            height: 500px;
+        }
+
+        #nearby_search {
+            width: 500px;
+            margin: 5px;
+            height: 250px;
+            overflow-y: auto;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="nearby_search"></div>
+    <div id="map"></div>
+    <div id="direction"></div>
+
+    <script>
+        let lat, log;
+        let map;
+
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+
+        function showPosition(position) {
+            lat = position.coords.latitude;
+            log = position.coords.longitude;
+            console.log("User's location: ", lat, log);
+            initializeMap();
+        }
+
+        function showError(error) {
+            console.warn('Geolocation error:', error);
+        }
+
+        function initializeMap() {
+            map = new mappls.Map('map', {
+                center: [lat, log],
+                zoom: 14,
+                search:false
+                // key: "d6d53eb34d94594899aa368e4ce78afe"
+            });
+
+            const options = {
+                divId: 'nearby_search',
+                map: map,
+                keywords: 'Hospital',
+                refLocation: [lat, log],
+                fitbounds: true,
+                click_callback: function (d) {
+                    console.log(d);
+                    updateDirection(d.latitude, d.longitude);
+                }
+            };
+
+            mappls.nearby(options);
+        }
+
+        function updateDirection(lat1, log1) {
+            const directionOption = {
+                map: map,
+                start: lat + ',' + log,
+                end: lat1 + ',' + log1,
+                resource: 'route_traffic',
+                callback: function (data) {
+                    console.log('Route data:', data);
+                }
+            };
+
+            mappls.direction(directionOption);
+        }
+    </script>
+</body>
+
+</html>

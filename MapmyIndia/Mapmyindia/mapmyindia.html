@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>MapmyIndia Plugin - Direction Plugin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MapmyIndia Direction Plugin">
+    <script src="https://apis.mappls.com/advancedmaps/api/8cfe38ec-e679-418b-892f-a4a3aba2effa/map_load?v=3.0"></script>
+    <script src="https://apis.mappls.com/advancedmaps/api/8cfe38ec-e679-418b-892f-a4a3aba2effa/map_sdk?v=3.0"></script>
+    <script src="https://apis.mappls.com/advancedmaps/api/8cfe38ec-e679-418b-892f-a4a3aba2effa/map_sdk_plugins?v=3.0&libraries=nearby"></script>
+
+    <!-- <script src="https://apis.mappls.com/advancedmaps/v1/d6d53eb34d94594899aa368e4ce78afe/map_load?v=3.0"></script> -->
+    <!-- <script src="https://apis.mappls.com/advancedmaps/api/d6d53eb34d94594899aa368e4ce78afe/map_sdk_plugins?v=3.0&libraries=nearby"></script> -->
+    <!-- <script src="https://apis.mappls.com/advancedmaps/api/d6d53eb34d94594899aa368e4ce78afe/map_sdk?v=3.0"></script> -->
+
+    <!-- <script src="https://apis.mapmyindia.com/maps/map_sdk_plugins?v=3.0&key=d6d53eb34d94594899aa368e4ce78afe"></> -->
+    <!-- <script src="https://apis.mapmyindia.com/advancedmaps/api/d6d53eb34d94594899aa368e4ce78afe/map_sdk_plugins"></script> -->
+
+    <style>
+        body {
+            margin: 0;
+        }
+
+        #map {
+            width: 500px;
+            height: 500px;
+        }
+
+        #nearby_search {
+            width: 500px !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="nearby_search" style="margin: 5px;width:99%;height:250px;overflow-y: auto;border-radius: 10px;"></div>
+    <div id="map"></div>
+    <div id="direction"></div>
+
+    <script>
+        let lat = 17.498813, log = 78.4217026;
+
+        navigator.geolocation.getCurrentPosition(position => {
+            lat = position.coords.latitude;
+            log = position.coords.longitude;
+            initializeMap();
+        });
+
+        function initializeMap() {
+            const map = new mappls.Map('map', {
+                center: [lat, log],
+                zoom: 10,
+                search:false
+                // key: "d6d53eb34d94594899aa368e4ce78afe"
+            });
+
+            const hospitals = [
+                "Vasavi Hospitals", "Sri Swastik Hospitals", "Sri Sri Holistic Hospitals", "SLG Hospitals",
+                "Mamatha Hospitals", "Sree Manju Hospitals", "Metrocare", "Medi Needs", "Prathima", "Padmaja Hospitals",
+                "Lotus Hospitals", "Remedy", "Ramdev Rao Hospitals", "Parindhevi Hospitals", "Care and Cure",
+                "Amor", "BBR Super Speciality", "Revive Multi Speciality", "Alavi Hospitals",
+                "Konark Hospitals", "Medone Hospitals", "Russh Hospitals"
+            ];
+
+            hospitals.forEach(hospital => {
+                mappls.nearby({
+                    divId: 'nearby_search',
+                    map: map,
+                    keywords: hospital,
+                    refLocation: [lat, log],
+                    fitbounds: true,
+                    click_callback: function (d) {
+                        updateDirection(map, d.latitude, d.longitude);
+                    }
+                });
+            });
+        }
+
+        function updateDirection(map, lat1, log1) {
+            const directionOption = {
+                map: map,
+                start: lat + ',' + log,
+                end: lat1 + ',' + log1,
+                resource: 'route_traffic',
+                callback: function (data) {
+                    console.log('Route data:', data);
+                }
+            };
+
+            mappls.direction(directionOption);
+        }
+    </script>
+</body>
+
+</html>
